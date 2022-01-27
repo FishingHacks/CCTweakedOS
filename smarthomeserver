@@ -1,0 +1,19 @@
+function string.starts(String, Start)
+    return string.sub(String,1,string.len(Start)) == Start
+end
+p = false
+peripheral.wrap("right").open(1) 
+while true do
+e, s, c, r, m, d = os.pullEvent("modem_message")
+print(m)
+if string.starts(m, "play") then
+p = true
+elseif string.starts(m, "smusic") then
+peripheral.wrap("back").callRemote("speaker_1", "stop")
+elseif string.starts(m, "tlights") then
+peripheral.wrap("back").callRemote("computer_3", "reboot")
+elseif p==true then
+peripheral.wrap("back").callRemote("speaker_1", "playSound", m)
+p=false
+end
+end 
